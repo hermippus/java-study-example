@@ -1,0 +1,24 @@
+name: Build and Release JAR
+on:
+  release:
+    types: [created]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+    - name: Set up JDK
+      uses: actions/setup-java@v3
+      with:
+        java-version: 21
+        distribution: 'temurin'
+    - name: Build with Gradle
+      uses: ./gradlew build
+    - name: Upload JAR to Github Release
+      uses: actions/upload-release-asset@v1
+      with:
+        upload_url: ${{ github.event.release.upload_url }}
+        asset_path: build/libs/study-1.0.0.jar
+        asset_name: study-1.0.0.jar
+        asset_content_type: application/java-archive
