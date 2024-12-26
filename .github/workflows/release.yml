@@ -18,6 +18,9 @@ jobs:
           java-version: 21
           distribution: 'adopt'
 
+      - name: List files in build/libs
+        run: ls -la build/libs
+
       - name: Build with Gradle
         run: ./gradlew build
 
