@@ -15,3 +15,4 @@ $ ./gradlew build
 
 # run with jar file
 $ java -jar build/libs/study-1.0.jar
+```
