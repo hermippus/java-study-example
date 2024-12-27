@@ -3,6 +3,7 @@
 ### Tech stack:
 * Java 21
 * Lombok
+* Gradle
 
 ## Build setup
 ```bash
