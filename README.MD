@@ -1,4 +1,4 @@
-# Java example using singleton pattern, single responsibility  principle and multithread-safe
+# Java example using singleton pattern, single responsibility  principle and multithreaded-safe
 
 ### Tech stack:
 * Java 21
