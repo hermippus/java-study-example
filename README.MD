@@ -5,6 +5,9 @@
 * Lombok
 * Gradle
 
+## Requirements
+* Java 21 (Any JDK)
+
 ## Build setup
 ```bash
 # clone repository
