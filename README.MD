@@ -10,13 +10,13 @@
 
 ## Build setup
 You can use Jenkins (pipeline) to build and use a .jar artifact using the `Jenkinsfile` in this repository. Or you can use Github Actions.
+
 ```bash
 # clone repository
 $ git clone https://github.com/hermippus/java-singleton-spr-example
 
 # build with Gradle
 $ ./gradlew build
-
-# run with jar file
-$ java -jar build/libs/study-1.0.jar
 ```
+
+The jar file is located in `build/libs/`
