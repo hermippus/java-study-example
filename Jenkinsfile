@@ -11,7 +11,7 @@ pipeline {
                 sh 'gradle clean build'
             }
         }
-        stage('Archive') {
+        stage('Archive Artifact') {
             steps {
                 archiveArtifacts artifacts: 'build/libs/*.jar', fingerprint: true
             }
