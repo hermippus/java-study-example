@@ -1,7 +1,8 @@
 pipeline {
-    agent any
-    tools {
-        gradle 'Gradle'
+    agent {
+        docker {
+            image 'gradle8-jdk17'
+        }
     }
     stages {
         stage('Checkout') {
@@ -11,7 +12,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'gradle clean build'
+                sh './gradlew clean build'
             }
         }
         stage('Archive Artifact') {
