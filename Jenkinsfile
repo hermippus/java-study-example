@@ -9,6 +9,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh './gradlew clean build'
+                echo "Test"
             }
         }
         stage('Archive Artifact') {
