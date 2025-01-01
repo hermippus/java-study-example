@@ -1,5 +1,5 @@
 name: Java CI for Gradle
-on: [push]
+on: [ push ]
 jobs:
   build:
     runs-on: ubuntu-latest

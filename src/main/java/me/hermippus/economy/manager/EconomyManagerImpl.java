@@ -2,31 +2,28 @@ package me.hermippus.economy.manager;
 
 import lombok.NonNull;
 import me.hermippus.economy.CurrencyType;
-
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import me.hermippus.economy.storage.DataStorage;
 
 public class EconomyManagerImpl implements EconomyManager {
 
-    private final Map<String, ConcurrentHashMap<CurrencyType, Integer>> players = new ConcurrentHashMap<>();
+    private final DataStorage storage;
 
-    @Override
-    public void addBalance(@NonNull String player, @NonNull CurrencyType type, int amount)  {
-        players.computeIfAbsent(player, k -> new ConcurrentHashMap<>())
-                .merge(type, amount, Integer::sum);
+    public EconomyManagerImpl(DataStorage storage) {
+        this.storage = storage;
     }
 
     @Override
-    public void takeBalance(@NonNull String player, @NonNull CurrencyType type, int amount)  {
-        players.computeIfPresent(player, (k, balances) -> {
-            balances.computeIfPresent(type, (c, balance) -> balance >= amount ? balance - amount : balance);
-            return balances.isEmpty() ? null : balances;
-        });
+    public void addBalance(@NonNull String player, @NonNull CurrencyType type, int amount) {
+        storage.add(player, type, amount);
     }
 
     @Override
-    public int getBalance(@NonNull String player, @NonNull CurrencyType type)  {
-        return players.getOrDefault(player, new ConcurrentHashMap<>())
-                .getOrDefault(type, 0);
+    public void withdrawBalance(@NonNull String player, @NonNull CurrencyType type, int amount) {
+        storage.remove(player, type, amount);
+    }
+
+    @Override
+    public int getBalance(@NonNull String player, @NonNull CurrencyType type) {
+        return storage.load(player, type);
     }
 }

@@ -3,56 +3,60 @@ package me.hermippus;
 import me.hermippus.economy.CurrencyType;
 import me.hermippus.economy.manager.EconomyManager;
 import me.hermippus.economy.manager.EconomyManagerSingleton;
+import me.hermippus.economy.storage.DataStorage;
+import me.hermippus.economy.storage.MemoryStorage;
 
 import java.util.Scanner;
 
 public class Main {
 
-    private static final EconomyManager economyManager = EconomyManagerSingleton.getInstance();
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
+        DataStorage storage = new MemoryStorage();
+        EconomyManagerSingleton.initializeStorage(storage);
+        EconomyManager economyManager = EconomyManagerSingleton.getInstance();
+
         while (true) {
             System.out.print("Enter the command (help): ");
-            String command= scanner.nextLine().toLowerCase();
+            String command = scanner.nextLine().toLowerCase();
 
             switch (command) {
                 case "help":
                     System.out.println(
                             """
-                             Economy commands:
-                             - help — this message
-                             - add — add balance to player
-                             - get — retrieve player balance
-                             - clear —  glassy clean
-                             - exit  — close program
-                             """
+                                    Available commands:
+                                    - help — show this message
+                                    - add — add balance to a player
+                                    - withdraw - withdraw balance from a player
+                                    - get — check a player's balance
+                                    - clear —  clear the console
+                                    - exit  — exit the program
+                                    """
                     );
                     break;
                 case "add":
-                    handleAddBalance();
+                    handleAddBalance(economyManager);
                     break;
-                case "take":
-                    handleTakeBalance();
+                case "withdraw":
+                    handleWithdrawBalance(economyManager);
                     break;
                 case "get":
-                    handleGetBalance();
+                    handleGetBalance(economyManager);
                     break;
                 case "clear":
-                    for (int i = 0; i < 256; i++) {
-                        System.out.println(" ");
-                    }
+                    clearConsole();
                     break;
                 case "exit":
-                    System.out.println("Bye bye");
+                    System.out.println("Goodbye!");
                     return;
                 default:
-                    System.out.println("Invalid command");
+                    System.out.println("Invalid command. Type 'help' for a list of commands");
             }
         }
     }
 
-    private static void handleAddBalance() {
+    private static void handleAddBalance(EconomyManager economyManager) {
         System.out.print("Enter the player name: ");
         String player = scanner.nextLine();
 
@@ -80,7 +84,7 @@ public class Main {
         System.out.printf("Added %d %s to %s's balance\n", amount, currency, player);
     }
 
-    private static void handleTakeBalance() {
+    private static void handleWithdrawBalance(EconomyManager economyManager) {
         System.out.print("Enter the player name: ");
         String player = scanner.nextLine();
 
@@ -94,7 +98,7 @@ public class Main {
             return;
         }
 
-        System.out.print("Enter amount to deduct: ");
+        System.out.print("Enter amount to withdraw: ");
         int amount;
         try {
             amount = Integer.parseInt(scanner.nextLine());
@@ -103,11 +107,11 @@ public class Main {
             return;
         }
 
-        economyManager.takeBalance(player, currency, amount);
-        System.out.printf("Deducted %d %s from %s's balance\n", amount, currency, player);
+        economyManager.withdrawBalance(player, currency, amount);
+        System.out.printf("Withdrew %d %s from %s's balance\n", amount, currency, player);
     }
 
-    private static void handleGetBalance() {
+    private static void handleGetBalance(EconomyManager economyManager) {
         System.out.print("Enter the player name: ");
         String player = scanner.nextLine();
 
@@ -122,5 +126,11 @@ public class Main {
                         - SILVER: %d
                         - BRONZE: %d
                         """, player, goldBalance, silverBalance, bronzeBalance);
+    }
+
+    private static void clearConsole() {
+        for (int i = 0; i < 256; i++) {
+            System.out.println(" ");
+        }
     }
 }
