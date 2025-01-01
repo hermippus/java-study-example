@@ -30,7 +30,7 @@ public class Main {
                                     - add — add balance to a player
                                     - withdraw - withdraw balance from a player
                                     - get — check a player's balance
-                                    - clear —  clear the console
+                                    - clear — clear the console
                                     - exit  — exit the program
                                     """
                     );
