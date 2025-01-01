@@ -3,13 +3,12 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/hermippus/java-singleton-srp-example.git'
+                git branch: 'main', url: 'https://github.com/hermippus/java-study-example'
             }
         }
         stage('Build') {
             steps {
                 sh './gradlew clean build'
-                echo "Test"
             }
         }
         stage('Archive Artifact') {
