@@ -27,7 +27,6 @@ $ cd java-study-example
 # build with Gradle (Jar)
 $ ./gradlew build
 
-
 # build with Gradle (Native Image)
 $ ./gradlew nativeCompile
 ```
