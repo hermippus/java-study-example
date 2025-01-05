@@ -8,12 +8,12 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh './gradlew clean build'
+                sh './gradlew clean nativeCompile'
             }
         }
         stage('Archive Artifact') {
             steps {
-                archiveArtifacts artifacts: 'build/libs/*.jar', fingerprint: true
+                archiveArtifacts artifacts: 'build/native/nativeCompile/*', fingerprint: true
             }
         }
     }

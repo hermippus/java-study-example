@@ -28,10 +28,10 @@ public class Main {
                                     Available commands:
                                     - help — show this message
                                     - add — add balance to a player
-                                    - withdraw - withdraw balance from a player
+                                    - withdraw — withdraw balance from a player
                                     - get — check a player's balance
                                     - clear — clear the console
-                                    - exit  — exit the program
+                                    - exit — exit the program
                                     """
                     );
                     break;
