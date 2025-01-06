@@ -19,7 +19,7 @@ graalvmNative {
         named("main") {
             imageName.set("study")
             mainClass.set("me.hermippus.Main")
-            buildArgs.add("-O4")
+            buildArgs.add("-Ob")
             buildArgs.add("--gc=G1")
         }
     }
